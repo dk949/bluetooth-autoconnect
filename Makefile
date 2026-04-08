@@ -5,6 +5,13 @@ UNITDIR    ?= $(LIBDIR)/systemd/system
 DATADIR    ?= $(LIBDIR)/bluetooth-autoconnect
 UDEVDIR    ?= $(LIBDIR)/udev/rules.d
 
+
+ifdef NO_DESTDIR_IN_POST_INSTALL
+SYSCONFDIR_IN_POST_INSTALL=$(SYSCONFDIR)/default/bluetooth-autoconnect
+else
+SYSCONFDIR_IN_POST_INSTALL=$(DESTDIR)$(SYSCONFDIR)/default/bluetooth-autoconnect
+endif
+
 .PHONY: all install uninstall
 
 all:
@@ -25,9 +32,9 @@ install:
 	@echo
 	@echo "            [POST INSTALL]"
 	@echo
-	@echo "Update the $(DESTDIR)$(SYSCONFDIR)/default/bluetooth-autoconnect file, then reload systemd and udev"
+	@echo "Update the $(SYSCONFDIR_IN_POST_INSTALL) file, then reload systemd and udev"
 	@echo
-	@echo "sudoedit $(DESTDIR)$(SYSCONFDIR)/default/bluetooth-autoconnect"
+	@echo "sudoedit $(SYSCONFDIR_IN_POST_INSTALL)"
 	@echo "sudo systemctl daemon-reload"
 	@echo "sudo udevadm control --reload-rules"
 	@echo
