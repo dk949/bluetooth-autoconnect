@@ -1,0 +1,4 @@
+# Start bluetooth-autoconnect.service when a Bluetooth controller becomes available.
+# This ensures the service is only triggered once the hardware is ready, rather than
+# relying on boot ordering via multi-user.target.
+SUBSYSTEM=="bluetooth", KERNEL=="hci[0-9]*", ACTION=="add", TAG+="systemd", ENV{SYSTEMD_WANTS}="bluetooth-autoconnect.service"

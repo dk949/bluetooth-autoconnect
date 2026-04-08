@@ -1,0 +1,11 @@
+# Controller to use (mandatory)
+CONTROLLER_ID=
+
+# Device to connect to (mandatory)
+DEVICE_ID=
+
+# Number of connection attempts before giving up (optional, default: 5)
+#CONNECT_RETRIES=5
+
+# Seconds to wait between connection attempts (optional, default: 2)
+#CONNECT_RETRY_DELAY=2

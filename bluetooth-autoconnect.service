@@ -1,0 +1,15 @@
+[Unit]
+Description=Connect a specific Bluetooth device at boot
+ConditionPathIsDirectory=/sys/class/bluetooth
+Requires=bluetooth.service
+After=bluetooth.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+EnvironmentFile=/etc/default/bluetooth-autoconnect
+ExecStart=/usr/lib/bluetooth-autoconnect/bluetooth-autoconnect.sh
+ExecStopPost=/bin/sh -c 'if [ "$SERVICE_RESULT" != success ]; then systemctl stop --no-block bluetooth.service; fi'
+
+[Install]
+WantedBy=multi-user.target
